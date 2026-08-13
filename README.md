@@ -12,7 +12,7 @@ Inspired by the functionality of [FCNameColor](https://github.com/WesselKuipers/
 - 🔍 **Auto-Scan & Roster Sync**: Interacts with in-game memory proxies (`InfoProxyLinkshell` / `InfoProxyCrossWorldLinkshell`) to automatically import shellmates.
 - 📝 **Manual Roster Management**: Full UI to search, add, or remove member names manually.
 - 🏷️ **Linkshell Badges**: Optional prefix or suffix badges (e.g. `[LS1] Player Name` or `Player Name [CWLS3]`).
-~~- 🎯 **Flexible Recolor Targets**: Choose whether to recolor Character Names, Titles, and/or Free Company tags.~~ This is broken for now
+- ~~🎯 **Flexible Recolor Targets**: Choose whether to recolor Character Names, Titles, and/or Free Company tags.~~ This is broken for now
 - 🌈 **Color Palettes**: Includes quick presets (*Vibrant Neon*, *Soft Pastel*, *Classic FC*, *High Contrast*).
 
 ---
