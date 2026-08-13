@@ -58,7 +58,6 @@ namespace LinkshellNameColor.Services
             {
                 foreach (var handler in handlers)
                 {
-                    // Only process Player Characters
                     if (handler.NamePlateKind != NamePlateKind.PlayerCharacter) continue;
 
                     var playerChar = handler.PlayerCharacter;
@@ -70,7 +69,6 @@ namespace LinkshellNameColor.Services
                     string? worldName = playerChar.HomeWorld.ValueNullable?.Name.ExtractText();
                     var match = linkshellManager.GetMatch(playerName, worldName);
 
-                    // Debug Logger
                     if (debugDumpCountdown > 0)
                     {
                         debugDumpCountdown--;
@@ -79,15 +77,12 @@ namespace LinkshellNameColor.Services
 
                     if (!configuration.PluginEnabled || match == null || !match.ChannelConfig.Enabled) continue;
 
-                    // Convert ImGui Vector4 (RGBA) to FFXIV Native ABGR 32-bit uint color
                     uint abgrColor = ConvertVector4ToAbgr(match.ChannelConfig.Color);
                     uint edgeAbgrColor = CalculateEdgeColor(abgrColor);
 
-                    // 1. Set Native ABGR 32-bit integer Text Color and Edge Color
                     handler.TextColor = abgrColor;
                     handler.EdgeColor = edgeAbgrColor;
 
-                    // 2. Append Linkshell Tag to Name if configured (Without adding color payloads that corrupt TextColor)
                     if (configuration.AppendLinkshellTag)
                     {
                         string badge = $"[{match.BadgeTag}]";
@@ -123,7 +118,6 @@ namespace LinkshellNameColor.Services
             byte a = (byte)Math.Clamp((int)(color.W * 255f), 0, 255);
             if (a == 0) a = 255;
 
-            // ABGR uint bit packing: 0xAABBGGRR
             return (uint)((a << 24) | (b << 16) | (g << 8) | r);
         }
 
@@ -134,7 +128,6 @@ namespace LinkshellNameColor.Services
             byte b = (byte)((abgrColor >> 16) & 0xFF);
             byte a = (byte)((abgrColor >> 24) & 0xFF);
 
-            // Calculate dark complementary outline (35% brightness)
             byte edgeR = (byte)(r * 0.35f);
             byte edgeG = (byte)(g * 0.35f);
             byte edgeB = (byte)(b * 0.35f);
