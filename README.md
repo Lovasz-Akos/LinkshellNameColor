@@ -9,11 +9,10 @@ Inspired by the functionality of [FCNameColor](https://github.com/WesselKuipers/
 ## ✨ Features
 
 - 🎨 **Per-Linkshell Color Customization**: Assign distinct colors to each of your 8 standard Linkshells (`LS1`–`LS8`) and 8 Cross-World Linkshells (`CWLS1`–`CWLS8`).
-- ⚡ **Sensible Onboarding Defaults**: Pre-configured out-of-the-box with vibrant, high-contrast default colors so you can start spotting friends immediately.
 - 🔍 **Auto-Scan & Roster Sync**: Interacts with in-game memory proxies (`InfoProxyLinkshell` / `InfoProxyCrossWorldLinkshell`) to automatically import shellmates.
 - 📝 **Manual Roster Management**: Full UI to search, add, or remove member names manually.
 - 🏷️ **Linkshell Badges**: Optional prefix or suffix badges (e.g. `[LS1] Player Name` or `Player Name [CWLS3]`).
-- 🎯 **Flexible Recolor Targets**: Choose whether to recolor Character Names, Titles, and/or Free Company tags.
+~~- 🎯 **Flexible Recolor Targets**: Choose whether to recolor Character Names, Titles, and/or Free Company tags.~~ This is broken for now
 - 🌈 **Color Palettes**: Includes quick presets (*Vibrant Neon*, *Soft Pastel*, *Classic FC*, *High Contrast*).
 
 ---
@@ -80,4 +79,4 @@ LinkshellNameColor/
 ---
 
 ## 📄 License
-Distributed under the MIT License.
+Distributed under the GPL 3 License.
