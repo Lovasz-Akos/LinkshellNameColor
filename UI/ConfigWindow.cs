@@ -33,6 +33,7 @@ namespace LinkshellNameColor.UI
 
         public override void Draw()
         {
+            // Status Summary Bar at top
             ImGui.TextColored(new Vector4(0.4f, 0.9f, 0.4f, 1f), $"Status: {(configuration.PluginEnabled ? "ACTIVE" : "DISABLED")}");
             ImGui.SameLine();
             ImGui.TextDisabled($"|  Tracked Members: {linkshellManager.TotalTrackedMembers}");
@@ -127,6 +128,7 @@ namespace LinkshellNameColor.UI
                 {
                     ImGui.TableNextRow();
 
+                    // Column 1: Enabled checkbox
                     ImGui.TableNextColumn();
                     bool enabled = channel.Enabled;
                     if (ImGui.Checkbox($"##Enabled_{channel.Key}", ref enabled))
@@ -137,9 +139,11 @@ namespace LinkshellNameColor.UI
                         namePlateService.RequestRedraw();
                     }
 
+                    // Column 2: Label
                     ImGui.TableNextColumn();
                     ImGui.TextUnformatted($"{channel.Key} ({channel.Label})");
 
+                    // Column 3: Color picker
                     ImGui.TableNextColumn();
                     Vector4 color = channel.Color;
                     if (ImGui.ColorEdit4($"##Color_{channel.Key}", ref color, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.AlphaPreview))
@@ -149,6 +153,7 @@ namespace LinkshellNameColor.UI
                         namePlateService.RequestRedraw();
                     }
 
+                    // Column 4: Preview Badge & Name
                     ImGui.TableNextColumn();
                     string badge = $"[{channel.Key}]";
                     string previewText = configuration.TagIsPrefix ? $"{badge} Sample Character" : $"Sample Character {badge}";
@@ -165,6 +170,7 @@ namespace LinkshellNameColor.UI
             ImGui.TextUnformatted("Manage Linkshell member lists for automatic nameplate recoloring:");
             ImGui.Spacing();
 
+            // Channel selection combo box
             var channelKeys = configuration.LinkshellChannels.Select(c => $"{c.Key} ({c.Label}) - {c.Members.Count} members").ToArray();
             if (selectedChannelIndex >= channelKeys.Length) selectedChannelIndex = 0;
 
@@ -192,6 +198,7 @@ namespace LinkshellNameColor.UI
             ImGui.Separator();
             ImGui.Spacing();
 
+            // Add member section
             ImGui.TextUnformatted("Add Single Member:");
             ImGui.SetNextItemWidth(220);
             ImGui.InputText($"##AddMemberInput_{currentChannel.Key}", ref newMemberInput, 64);
@@ -211,6 +218,7 @@ namespace LinkshellNameColor.UI
 
             ImGui.Spacing();
 
+            // Batch import modal / section
             if (showBatchImportModal)
             {
                 if (ImGui.CollapsingHeader($"Batch Paste Names into {currentChannel.Key}", ImGuiTreeNodeFlags.DefaultOpen))
@@ -235,6 +243,7 @@ namespace LinkshellNameColor.UI
                 }
             }
 
+            // Quick-Add Nearby Players section
             if (ImGui.CollapsingHeader("Quick-Add Nearby Players in Zone", ImGuiTreeNodeFlags.None))
             {
                 var nearby = linkshellManager.GetNearbyPlayerNames();
@@ -272,6 +281,7 @@ namespace LinkshellNameColor.UI
 
             ImGui.Spacing();
 
+            // Member list child window
             if (ImGui.BeginChild("RosterListChild", new Vector2(0, -35), true))
             {
                 var membersList = currentChannel.Members
@@ -506,57 +516,57 @@ namespace LinkshellNameColor.UI
 
         private void ApplyPalettePreset(int presetId)
         {
-            if (presetId == 1)
+            if (presetId == 1) // Vibrant Neon
             {
                 for (int i = 0; i < configuration.LinkshellChannels.Count; i++)
                 {
                     var ch = configuration.LinkshellChannels[i];
                     ch.Color = (i % 8) switch
                     {
-                        0 => new Vector4(0.00f, 1.00f, 1.00f, 1.00f),
-                        1 => new Vector4(1.00f, 0.90f, 0.00f, 1.00f),
-                        2 => new Vector4(1.00f, 0.20f, 0.50f, 1.00f),
-                        3 => new Vector4(0.00f, 1.00f, 0.40f, 1.00f),
-                        4 => new Vector4(0.80f, 0.20f, 1.00f, 1.00f),
-                        5 => new Vector4(1.00f, 0.50f, 0.00f, 1.00f),
-                        6 => new Vector4(0.20f, 0.60f, 1.00f, 1.00f),
-                        _ => new Vector4(0.60f, 1.00f, 0.00f, 1.00f),
+                        0 => new Vector4(0.00f, 1.00f, 1.00f, 1.00f), // Neon Cyan
+                        1 => new Vector4(1.00f, 0.90f, 0.00f, 1.00f), // Electric Yellow
+                        2 => new Vector4(1.00f, 0.20f, 0.50f, 1.00f), // Neon Pink
+                        3 => new Vector4(0.00f, 1.00f, 0.40f, 1.00f), // Neon Green
+                        4 => new Vector4(0.80f, 0.20f, 1.00f, 1.00f), // Neon Purple
+                        5 => new Vector4(1.00f, 0.50f, 0.00f, 1.00f), // Neon Orange
+                        6 => new Vector4(0.20f, 0.60f, 1.00f, 1.00f), // Bright Blue
+                        _ => new Vector4(0.60f, 1.00f, 0.00f, 1.00f), // Lime
                     };
                 }
             }
-            else if (presetId == 2)
+            else if (presetId == 2) // Soft Pastel
             {
                 for (int i = 0; i < configuration.LinkshellChannels.Count; i++)
                 {
                     var ch = configuration.LinkshellChannels[i];
                     ch.Color = (i % 8) switch
                     {
-                        0 => new Vector4(0.60f, 0.90f, 0.95f, 1.00f),
-                        1 => new Vector4(0.95f, 0.90f, 0.65f, 1.00f),
-                        2 => new Vector4(0.95f, 0.70f, 0.75f, 1.00f),
-                        3 => new Vector4(0.65f, 0.90f, 0.75f, 1.00f),
-                        4 => new Vector4(0.80f, 0.75f, 0.95f, 1.00f),
-                        5 => new Vector4(0.95f, 0.80f, 0.65f, 1.00f),
-                        6 => new Vector4(0.70f, 0.80f, 0.95f, 1.00f),
-                        _ => new Vector4(0.85f, 0.95f, 0.65f, 1.00f),
+                        0 => new Vector4(0.60f, 0.90f, 0.95f, 1.00f), // Sky Pastel
+                        1 => new Vector4(0.95f, 0.90f, 0.65f, 1.00f), // Soft Cream
+                        2 => new Vector4(0.95f, 0.70f, 0.75f, 1.00f), // Soft Rose
+                        3 => new Vector4(0.65f, 0.90f, 0.75f, 1.00f), // Soft Sage
+                        4 => new Vector4(0.80f, 0.75f, 0.95f, 1.00f), // Soft Lavender
+                        5 => new Vector4(0.95f, 0.80f, 0.65f, 1.00f), // Soft Apricot
+                        6 => new Vector4(0.70f, 0.80f, 0.95f, 1.00f), // Soft Periwinkle
+                        _ => new Vector4(0.85f, 0.95f, 0.65f, 1.00f), // Soft Mint
                     };
                 }
             }
-            else if (presetId == 3)
+            else if (presetId == 3) // Classic FC
             {
                 for (int i = 0; i < configuration.LinkshellChannels.Count; i++)
                 {
                     var ch = configuration.LinkshellChannels[i];
                     ch.Color = (i % 8) switch
                     {
-                        0 => new Vector4(1.00f, 0.85f, 0.30f, 1.00f),
-                        1 => new Vector4(0.30f, 0.85f, 0.60f, 1.00f),
-                        2 => new Vector4(0.40f, 0.70f, 1.00f, 1.00f),
-                        3 => new Vector4(0.90f, 0.40f, 0.40f, 1.00f),
-                        4 => new Vector4(0.75f, 0.50f, 0.90f, 1.00f),
-                        5 => new Vector4(0.95f, 0.60f, 0.25f, 1.00f),
-                        6 => new Vector4(0.20f, 0.85f, 0.85f, 1.00f),
-                        _ => new Vector4(0.80f, 0.80f, 0.80f, 1.00f),
+                        0 => new Vector4(1.00f, 0.85f, 0.30f, 1.00f), // Gold
+                        1 => new Vector4(0.30f, 0.85f, 0.60f, 1.00f), // Emerald
+                        2 => new Vector4(0.40f, 0.70f, 1.00f, 1.00f), // Sapphire
+                        3 => new Vector4(0.90f, 0.40f, 0.40f, 1.00f), // Ruby
+                        4 => new Vector4(0.75f, 0.50f, 0.90f, 1.00f), // Amethyst
+                        5 => new Vector4(0.95f, 0.60f, 0.25f, 1.00f), // Amber
+                        6 => new Vector4(0.20f, 0.85f, 0.85f, 1.00f), // Turquoise
+                        _ => new Vector4(0.80f, 0.80f, 0.80f, 1.00f), // Silver
                     };
                 }
             }
