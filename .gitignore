@@ -1,0 +1,19 @@
+# Build output directories
+bin/
+obj/
+
+# User-specific & IDE files
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# OS generated files
+Thumbs.db
+ehshell.ini
+Desktop.ini
+$RECYCLE.BIN/
+*.DS_Store

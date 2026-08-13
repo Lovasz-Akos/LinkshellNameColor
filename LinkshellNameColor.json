@@ -1,0 +1,20 @@
+{
+  "Author": "LinkshellNameColor Team",
+  "Name": "LinkshellNameColor",
+  "InternalName": "LinkshellNameColor",
+  "AssemblyVersion": "1.0.0.0",
+  "Description": "Recolor character nameplates in-game based on Linkshell (LS1-8) and Cross-World Linkshell (CWLS1-8) membership. Makes it effortless to identify shellmates in busy crowds, cities, and hunt trains.",
+  "ApplicableForCategory": "UI",
+  "Tags": [
+    "linkshell",
+    "cwls",
+    "nameplate",
+    "color",
+    "recolor",
+    "social",
+    "ui"
+  ],
+  "DalamudApiLevel": 15,
+  "Punchline": "Recolor nameplates for members in your Linkshells and Cross-World Linkshells.",
+  "AcceptsFeedback": true
+}
